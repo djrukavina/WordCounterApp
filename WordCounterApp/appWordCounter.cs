@@ -27,7 +27,6 @@ namespace WordCounterApp
             foreach(string word in words)
             {
                 string currentWord = word.ToLower();
-                //numAppearing.ContainsKey(currentWord) ? numAppearing[currentWord] += 1 : numAppearing[currentWord] = 1;
                 if (numAppearing.ContainsKey(currentWord))
                 {
                     numAppearing[currentWord]++;
@@ -52,6 +51,7 @@ namespace WordCounterApp
             if(result == DialogResult.OK)
             {
                 selectedFilePath = openFileDialog.FileName;
+                btnStart.Enabled = true;
             }
             textBox.Text = (selectedFilePath != "") ? selectedFilePath : "File not selected!";
         }
@@ -64,6 +64,8 @@ namespace WordCounterApp
                 string[] words = SplitTextToWords(textData);
                 Dictionary<string, int> numAppearing = CountWords(words);
                 var sortedWords = numAppearing.OrderByDescending(word => word.Value);
+
+                richTextBox.Clear();
                 richTextBox.AppendText("Count\t\tWord\n");
                 foreach(var kvp in sortedWords)
                 {
